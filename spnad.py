@@ -47,5 +47,26 @@ def detect_suspicious_connections():
 
 
 # LOGGING AND ALERTS
-        
-    
+
+from datetime import datetime
+
+def log_alert(message):
+    with open("alerts.log", "a") as log_file:
+        log_file.write(f"[{datetime.now()}] {message}\n")
+
+
+def alert_on_findings():
+    processes = detect_suspicious_processes()
+    conns = detect_suspicious_connections()
+
+    if processes:
+        print("Suspicious processes found!")
+        for p in processes:
+            msg = f"Suspicious process: {p['name']} (PID: {p['pid']}) by {p['username']}"
+            print(msg)
+            log_alert(msg)
+
+    if conns:
+        print("Suspicious network connections found!")
+        for c in conns:
+            msg = f"Connection from {c['process']} (PID: {c['pid']}) to {c['remote_ip']} "
