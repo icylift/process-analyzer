@@ -69,4 +69,11 @@ def alert_on_findings():
     if conns:
         print("Suspicious network connections found!")
         for c in conns:
-            msg = f"Connection from {c['process']} (PID: {c['pid']}) to {c['remote_ip']} "
+            msg = f"Connection from {c['process']} (PID: {c['pid']}) to {c['remote_ip']} ({c['domain']})"
+
+if __name__ == "__main__":
+    print("🚨 Running Suspicious Process & Network Activity Detector...")
+    alert_on_findings()
+
+
+
